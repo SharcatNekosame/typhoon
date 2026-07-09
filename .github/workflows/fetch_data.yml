@@ -2,8 +2,8 @@ name: Fetch Typhoon Data
 
 on:
   schedule:
-    - cron: '0 * * * *' # 每小時自動執行一次
-  workflow_dispatch: # 允許手動強制執行
+    - cron: '0 * * * *' # 每小時自動執行
+  workflow_dispatch: # 允許手動執行
 
 jobs:
   build:
@@ -14,7 +14,8 @@ jobs:
 
       - name: Fetch data from CWA
         run: |
-          curl -s "https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/W-C0034-002?Authorization=${{ secrets.CWA_API_KEY }}&format=JSON" -o typhoon.json
+          # 修正為 2026 最新官方開放資料圖資網址
+          curl -s "https://opendata.cwa.gov.tw/api/v1/rest/datastore/W-C0034-002?Authorization=${{ secrets.CWA_API_KEY }}&format=JSON" -o typhoon.json
 
       - name: Commit and push changes
         run: |
