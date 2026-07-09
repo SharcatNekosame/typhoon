@@ -1,7 +1,7 @@
 // 初始化地圖（中心點設在臺灣與西北太平洋海域）
 const map = L.map('map').setView([22.0, 125.0], 5);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
+L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png', {
+    attribution: '© Stadia Maps © Stamen Design © OpenStreetMap'
 }).addTo(map);
 
 const markerGroup = L.layerGroup().addTo(map);
