@@ -1,4 +1,3 @@
-// 初始化地圖（這裡套用高質感暗黑風底圖，讓彩色線條更醒目）
 const map = L.map('map').setView([22.0, 125.0], 5);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '© OpenStreetMap contributors © CARTO'
