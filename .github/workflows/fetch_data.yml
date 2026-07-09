@@ -13,9 +13,8 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Fetch JSON from CWA
-      run: |
-        curl -s "https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/W-C0034-001?Authorization=${{ secrets.CWA_API_KEY }}&format=JSON" -o typhoon.json
-
+     run: |
+  curl -s "https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/W-C0034-002?Authorization=${{ secrets.CWA_API_KEY }}&format=JSON" -o typhoon.json
     - name: Commit and Push if changed
       run: |
         git config --global user.name "github-actions[bot]"
