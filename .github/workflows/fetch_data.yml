@@ -2,22 +2,24 @@ name: Fetch Typhoon Data
 
 on:
   schedule:
-    - cron: '0 * * * *' # 每小時的 0 分自動執行一次
-  workflow_dispatch: # 允許手動點擊按鈕觸發更新
+    - cron: '0 * * * *' # 每小時自動執行一次
+  workflow_dispatch: # 允許手動強制執行
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-    - name: Fetch JSON from CWA
-     run: |
-  curl -s "https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/W-C0034-002?Authorization=${{ secrets.CWA_API_KEY }}&format=JSON" -o typhoon.json
-    - name: Commit and Push if changed
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add typhoon.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "🔄 自動更新颱風最新資料" && git push)
+      - name: Fetch data from CWA
+        run: |
+          curl -s "https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/W-C0034-002?Authorization=${{ secrets.CWA_API_KEY }}&format=JSON" -o typhoon.json
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add typhoon.json
+          git commit -m "自動更新颱風最新路徑資料" || exit 0
+          git push
